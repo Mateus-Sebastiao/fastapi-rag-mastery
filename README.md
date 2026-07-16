@@ -12,7 +12,7 @@ A production-grade, highly scalable RAG (Retrieval-Augmented Generation) infrast
 ## 🛠️ Tech Stack
 - **Framework**: FastAPI (Asynchronous engine)
 - **ASGI Server**: Uvicorn
-- **LLM Engine**: Ollama (Llama 3)
+- **LLM Engine**: Ollama (Llama 3.2:3b)
 - **AI Proxy Gateway**: LiteLLM
 - **Vector Database**: ChromaDB
 - **Embeddings**: HuggingFace (Sentence-Transformers)
@@ -24,7 +24,7 @@ A production-grade, highly scalable RAG (Retrieval-Augmented Generation) infrast
 ### 1. Prerequisites
 Ensure you have **Ollama** installed and running locally with the Llama3 model pull:
 ```bash
-ollama pull llama3
+ollama pull llama3.2:3b
 ```
 
 ### 2. Environment Setup
@@ -45,14 +45,30 @@ CHROMA_PERSIST_DIR="./chroma_db"
 ### 3. Installation
 Install dependencies and run the Uvicorn production server:
 ```bash
-pip install -r requirements.txt
+uv sync
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---
 
 ## 🧭 Roadmap
-- [x] **Module 01: Beginner** - Naive RAG (Inference, Simple Chunking, Vector Storage, Retrieval)
-- [ ] **Module 02: Intermediate** - Advanced Retrieval (Query Rewriting, Reranking, Hybrid Search)
-- [ ] **Module 03: Advanced** - Evaluation Metrics (Ragas, TruLens) & Guardrails
-- [ ] **Module 04: Agentic** - Fully Autonomous Agentic RAG using tool-calling loops
+
+- [x] **Module 01: Beginner — Naive RAG**
+  - Foundational vector pipelines (Retrieval -> Augmentation -> Generation).
+  - Raw string payload ingestion & basic token-length splitters.
+  - Basic Vector Search using ChromaDB + local HuggingFace embeddings.
+
+- [ ] **Module 02: Intermediate — Advanced Production Retrieval**
+  - **Document Parsing Engine**: Multi-format parsing (PDF/Markdown) handling file uploads.
+  - **Deterministic Text Splitting**: LangChain's `RecursiveCharacterTextSplitter` with semantic overlap.
+  - **Query Rewriting**: LLM-driven expansion of user intent before lookup.
+  - **Hybrid Search**: Combining Dense Vectors (ChromaDB) with Sparse Retrieval (BM25 Keyword Matching).
+  - **Reranking Cross-Encoders**: Sorting top-K contexts using specialized local scoring models.
+
+- [ ] **Module 03: Advanced — Production Evaluation & Guardrails**
+  - **RAG Evaluation (Eval)**: Automated testing framework using `Ragas` or `TruLens` (Faithfulness, Answer Relevance).
+  - **Guardrails Engine**: Input/Output validation to prevent hallucinations and jailbreaks.
+
+- [ ] **Module 04: Agentic — Autonomous Cognitive Architectures**
+  - Fully autonomous Tool-Calling loop configuration.
+  - Self-RAG paradigms (Agent evaluates if retrieved context is useful or needs re-routing).
